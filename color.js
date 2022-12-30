@@ -34,7 +34,7 @@ form.addEventListener("submit", (el) => {
   };
   el.preventDefault();
   const color4List = new Array(6);
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     const en = "ABCDEF"[i];
     let value;
     if (el.target["colorText" + en].value) {
@@ -48,7 +48,7 @@ form.addEventListener("submit", (el) => {
   }
 
   const color2List = new Array(4);
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 1; i++) {
     const en = "abcd"[i];
     let value;
     if (el.target["colorText" + en].value) {
@@ -88,17 +88,21 @@ form.addEventListener("submit", (el) => {
 });
 
 function coloring(color4List, color2List) {
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     console.log(document.querySelectorAll("." + "ABCDEF"[i] + ">div"));
     document.querySelectorAll("." + "ABCDEF"[i]).forEach((el) => {
       el.style.backgroundColor = color4List[i] + "33";
     });
-    document.querySelectorAll(".set4-ul .current-color")[i].style.color = color4List[i];
+    document.querySelectorAll(".set4-ul .current-color")[i].style.color =
+      color4List[i];
   }
-  for (let i = 0; i < 4; i++) {
-    document.querySelectorAll("." + ["AA", "BB", "CC", "DD"][i]).forEach((el) => {
-      el.style.backgroundColor = color2List[i] + "80";
-      document.querySelectorAll(".set2-ul .current-color")[i].style.color = color2List[i];
-    });
+  for (let i = 0; i < 1; i++) {
+    document
+      .querySelectorAll("." + ["AA", "BB", "CC", "DD"][i])
+      .forEach((el) => {
+        el.style.backgroundColor = color2List[i] + "80";
+        document.querySelectorAll(".set2-ul .current-color")[i].style.color =
+          color2List[i];
+      });
   }
 }

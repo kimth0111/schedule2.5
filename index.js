@@ -1,34 +1,25 @@
 const schedule = [
-  ["E", "E", "C", "B", "A"],
-  ["C", "A*", "A", "B*", "D*"],
-  ["B", "C", "C*", "C", "D"],
-  ["A", "A", "B*", "E", "F"],
-  ["D*", "F", "E", "F", "창"],
-  ["D", "B", "F", "C*", "창"],
-  ["A*", "D", "B", "D", "창"],
+  ["C", "C", "D", "D", "C"],
+  ["D", "E", "C", "E", "D"],
+  ["D", "E", "C", "E", "E"],
+  ["A", "A", "A", "A", "A"],
+  ["B", "B", "B", "B", "B"],
+  ["특강", "특강", "특강", "특강", "특강"],
 ];
-const health = {
-  "1D": "운동1",
-  "2D": "보건2",
-  "1A": "보건1",
-  "2A": "운동2",
-  "1C": "보건1",
-  "2C": "운동2",
-  "1B": "운동1",
-  "2B": "보건2",
-}; // 체육과 보건중 먼저나오는 세트
 
 let number = localStorage.getItem("number") | "";
 if (list4[number]) {
   draw();
-  document.querySelector("#back").style.backgroundImage = "url(" + number + ".jpg" + ")";
+  document.querySelector("#back").style.backgroundImage =
+    "url(" + number + ".jpg" + ")";
 }
 document.querySelector("form").addEventListener("submit", (el) => {
   el.preventDefault();
   number = el.target.number.value;
-  if (number.length == 4) number = number[0] + "0" + number[1] + number[2] + number[3];
-  console.log();
-  if (!list2[number]) {
+  if (number.length == 4)
+    number = number[0] + "0" + number[1] + number[2] + number[3];
+
+  if (!list4[number]) {
     const a = Object.keys(student).filter((el) => {
       return student[el] == number;
     });
@@ -48,7 +39,8 @@ function draw() {
   const teacher4 = document.querySelectorAll(".teacher4-tr td");
   const teacher2 = document.querySelectorAll(".teacher2-tr td");
 
-  document.querySelector(".name").innerHTML = number + " / 이름: " + student[number];
+  document.querySelector(".name").innerHTML =
+    number + " / 이름: " + student[number];
 
   //4단위
   subject4.forEach((sub, index) => {
@@ -60,16 +52,24 @@ function draw() {
   });
   //2단위
   subject2.forEach((sub, index) => {
-    if (list2[number][set2[index].innerText]) sub.innerHTML = list2[number][set2[index].innerText];
+    if (list4[number][set2[index].innerText + "특강"]) {
+      sub.innerHTML = list4[number][set2[index].innerText + "특강"];
+    }
   });
   teacher2.forEach((tch, index) => {
-    if (list2[number][set2[index].innerText])
+    if (
+      list4[number][set2[index].innerText + "특강"] &&
+      list4[number][set2[index].innerText + "특강"] != "자습2"
+    )
       tch.innerHTML =
         "<span>" +
-        whoTeacher(subject2[index].innerText, set2[index].innerText) +
+        whoTeacher(set2[index].innerText + "특강", set2[index].innerText) +
         "</span>" +
         "<br/>" +
-        where[whoTeacher(subject2[index].innerText, set2[index].innerText)];
+        where[
+          whoTeacher(set2[index].innerText + "특강", set2[index].innerText)
+        ];
+    else tch.innerHTML = "";
   });
 
   const scheTr = document.querySelectorAll("#own-schedule tr");
@@ -85,7 +85,12 @@ function draw() {
           if (a.length == 1) {
             if (list4[number][a]) {
               const div = document.createElement("div");
-              div.innerHTML = list4[number][a] + "<br/>" + "(" + whoTeacher(list4[number][a], a) + "T)";
+              div.innerHTML =
+                list4[number][a] +
+                "<br/>" +
+                "(" +
+                whoTeacher(list4[number][a], a) +
+                "T)";
               div.title = "위치: " + where[whoTeacher(list4[number][a], a)];
               td.innerText = "";
               td.append(div);
@@ -94,27 +99,23 @@ function draw() {
             }
           }
           if (a.length == 2) {
-            a = a.replace("*", "");
-            if (list2[number][a][1] == "건") {
-              let subH;
-              if (healthCnt++ == 0) subH = health[list2[number][a][list2[number][a].length - 1] + a];
-              else {
-                subH = list2[number][a]
-                  .replace("&", "")
-                  .replace(health[list2[number][a][list2[number][a].length - 1] + a], "");
-              }
-              const div = document.createElement("div");
-              div.innerHTML = subH + "<br/>" + "(" + whoTeacher(subH, a) + "T)";
-              div.title = "위치: " + where[whoTeacher(subH, a)];
-              td.innerText = "";
-              td.append(div);
+            if (list4[number]["미적분특강"] == "참여") {
+              td.innerHTML =
+                "미적분특강" + "<br/>" + "(" + whoTeacher("미적분특강") + "T)";
+              td.title = "위치: " + where[whoTeacher(list4[number][a], a)];
               if (day == j) td.classList.add("today");
-            } else if (list2[number][a]) {
-              td.innerHTML = list2[number][a] + "<br/>" + "(" + whoTeacher(list2[number][a], a) + "T)";
-              td.title = "위치: " + where[whoTeacher(list2[number][a], a)];
+            } else if (list4[number]["한능검특강"] == "참여") {
+              td.innerHTML =
+                "한능검특강" + "<br/>" + "(" + whoTeacher("한능검특강") + "T)";
+              td.title = "위치: " + where[whoTeacher(list4[number][a], a)];
+              if (day == j) td.classList.add("today");
+            } else {
+              td.innerHTML =
+                "자습2" + "<br/>" + "(" + whoTeacher("자습2") + "T)";
+              td.title = "위치: " + where[whoTeacher(list4[number][a], a)];
               if (day == j) td.classList.add("today");
             }
-            td.classList.add(a + a);
+            td.classList.add("AA");
           }
         }
       });
