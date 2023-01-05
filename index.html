@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>시간표</title>
+    <style>
+      .bch{
+        background-color:white;
+      }
+    </style>
   </head>
   <body>
     <div
@@ -30,12 +35,12 @@
       <div id="hi" style="margin-left: 10px; color: red"></div>
     </div>
 
-    <div style="width: fit-content; background-color: white;">학번: <span class="name"></span></div>
+    <div style="width: fit-content;" class="bch">학번: <span class="name"></span></div>
     <div>
       <div style="display: flex">
-        <div style="background-color: white;">
+        <div class="bch">
           <div>
-            <table border="1" id="set-tb" style="background-color: white;">
+            <table border="1" id="set-tb">
               <tr class="title">
                 <td colspan="5">4단위</td>
               </tr>
@@ -112,7 +117,8 @@
         <table
           border="1"
           id="own-schedule"
-          style="position: relative; left: 50px; top: -30px; background-color: white;"
+          style="position: relative; left: 50px; top: -30px; "
+               class="bch"
         >
           <tr>
             <td class="time">\</td>
@@ -269,9 +275,9 @@
       <div class="option-container">
         <form class="option-form">
           <div
+               class="bch"
             style="
               display: flex;
-              background-color: white;
               border: 1px solid black;
               width: fit-content;
             "
@@ -569,6 +575,9 @@
                     <label class="current-color" style="color: black">■</label>
                   </div>
                 </div>
+              </li>
+              <li>
+                투명도(1~100): <input type="text" name="op" style = "width: 60px"/>
               </li>
             </ul>
             <div style="width: 50px"></div>
