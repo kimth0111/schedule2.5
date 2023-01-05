@@ -2,6 +2,7 @@ const form = document.querySelector("form.option-form");
 
 const preList4 = JSON.parse(localStorage.getItem("list4"));
 const preList2 = JSON.parse(localStorage.getItem("list2"));
+let op = Number(localStorage.getItem("op")) || 100; 
 
 if (preList4 && preList2) {
   coloring(preList4, preList2);
@@ -19,6 +20,8 @@ if (preList4 && preList2) {
 }
 
 form.addEventListener("submit", (el) => {
+  op = el.target.op.value;
+  localStorage.setItem("op", op);
   const colorList = {
     red: "#FF0000",
     purple: "#7F00FF",
@@ -88,6 +91,7 @@ form.addEventListener("submit", (el) => {
 });
 
 function coloring(color4List, color2List) {
+  document.querySelectorAll(".bch").forEach(el=>{el.style.opacity = op})
   for (let i = 0; i < 5; i++) {
     console.log(document.querySelectorAll("." + "ABCDEF"[i] + ">div"));
     document.querySelectorAll("." + "ABCDEF"[i]).forEach((el) => {
