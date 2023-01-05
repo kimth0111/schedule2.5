@@ -91,7 +91,7 @@ form.addEventListener("submit", (el) => {
 });
 
 function coloring(color4List, color2List) {
-  document.querySelectorAll(".bch").forEach(el=>{el.style.opacity = op})
+  document.querySelectorAll(".bch").forEach(el=>{el.style.opacity = op/100.0})
   for (let i = 0; i < 5; i++) {
     console.log(document.querySelectorAll("." + "ABCDEF"[i] + ">div"));
     document.querySelectorAll("." + "ABCDEF"[i]).forEach((el) => {
